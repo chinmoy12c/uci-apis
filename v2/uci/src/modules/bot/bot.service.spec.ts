@@ -164,7 +164,7 @@ describe('BotService', () => {
     fetchMock.getOnce(`${configService.get<string>('MINIO_GET_SIGNED_FILE_URL')}?fileName=testImageFile`,
       'testImageUrl'
     );
-    const response = await botService.findAllContextual(null, null);
+    const response = await botService.findAllContextual(null, null, null);
     expect(response).toEqual(mockBotsResolved);
     fetchMock.restore();
   });
@@ -192,7 +192,7 @@ describe('BotService', () => {
     const mockCachedBots = [{ id: 'testId', name: 'TestBot' }];
     const cacheKey = 'bots_null_null';
     botService.cacheManager.get = jest.fn().mockResolvedValue(mockCachedBots);
-    const result = await botService.findAllContextual(null, null);
+    const result = await botService.findAllContextual(null, null, null);
     expect(botService.cacheManager.get).toHaveBeenCalledWith(cacheKey);
     expect(result).toEqual(mockCachedBots);
   });

@@ -102,7 +102,7 @@ export class BotController {
     AddROToResponseInterceptor,
   )
   findAllContextual(@Body() body: any) {
-    return this.botService.findAllContextual(body.ownerId, body.ownerOrgId);
+    return this.botService.findAllContextual(body.ownerId, body.ownerOrgId, body.sortBy);
   }
 
   @Get('/search')

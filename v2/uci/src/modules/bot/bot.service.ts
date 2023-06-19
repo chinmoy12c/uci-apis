@@ -22,6 +22,7 @@ export class BotService {
   constructor(
     private prisma: PrismaService,
     private configService: ConfigService,
+    //@ts-ignore
     @Inject(CACHE_MANAGER) public cacheManager: Cache,
   ) {
     this.logger = new Logger(BotService.name);
@@ -236,7 +237,7 @@ export class BotService {
     return prismaResult;
   }
 
-  async findAllContextual(ownerID: string | null, ownerOrgID: string | null): Promise<Bot[]> {
+  async findAllContextual(ownerID: string | null, ownerOrgID: string | null, sortBy: string | null): Promise<Bot[]> {
     const cacheKey = `bots_${ownerID}_${ownerOrgID}`;
     const cachedBots = await this.cacheManager.get(cacheKey);
     if (cachedBots) {
@@ -249,6 +250,9 @@ export class BotService {
       where: {
         ownerID: ownerID,
         ownerOrgID: ownerOrgID,
+      },
+      orderBy: {
+        [sortBy ? sortBy : 'name']: 'asc'
       },
       include: this.include,
     });
