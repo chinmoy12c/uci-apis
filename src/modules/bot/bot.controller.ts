@@ -181,6 +181,51 @@ export class BotController {
     return this.botService.findOne(id);
   }
 
+  @Get(':id/config')
+  @UseInterceptors(
+    AddResponseObjectInterceptor,
+    AddAdminHeaderInterceptor,
+    AddOwnerInfoInterceptor,
+    AddROToResponseInterceptor,
+  )
+  async getBotConfig(@Param('id') id: string) {
+    /// Mock data for testing
+    const data = {
+        "bot": {
+          "id": "23293u42309423eacsdfsdf",
+          "name": "Video Samiksha",
+          "segment_url": "http://103.154.251.109:8070/segments/1/mentors?deepLink=nipunlakshya://chatbot",
+          "form_id": "video_samiksha",
+        }
+    };
+
+    return data;
+  }
+
+  @UseInterceptors(
+    AddResponseObjectInterceptor,
+    AddAdminHeaderInterceptor,
+    AddOwnerInfoInterceptor,
+    AddROToResponseInterceptor,
+  )
+  @Get(':id/report')
+  async getBroadcastBotReport() {
+    /// Mock data for testing
+    const data = {
+        "next_page": "urlurlurlurlurl",
+        "success": [
+          "121212",
+          "12234234234",
+          "2323423"
+        ],
+        "failure": [
+          "123"
+        ]
+    };
+
+    return data;
+  }
+
   @Get('/start/:id')
   @UseInterceptors(
     AddResponseObjectInterceptor,
